@@ -1,9 +1,9 @@
-package com.example.phongkham_da_khoa;
+package com.example.phong_kham_da_khoa.Model;
 
 public enum Role {
     GUEST,
     CUSTOMER,
     DENTIST,
-    OWNER,
+    CLINIC_OWNER,
     ADMIN
 }

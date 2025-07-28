@@ -8,9 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterRequest {
+public class AuthResponse {
+    private String token;
     private String name;
-    private String email;
-    private String password;
     private Role role;
 }

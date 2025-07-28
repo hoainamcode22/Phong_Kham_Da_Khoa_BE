@@ -1,6 +1,12 @@
-package com.example.phongkham_da_khoa;
+package com.example.phong_kham_da_khoa.dto;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginRequest {
-    public String email;
-    public String password;
+    private String email;
+    private String password;
 }

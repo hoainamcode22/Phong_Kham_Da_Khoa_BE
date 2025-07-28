@@ -1,18 +1,27 @@
-package com.example.phongkham_da_khoa;
+package com.example.phong_kham_da_khoa.Controller;
 
+import com.example.phong_kham_da_khoa.Service.AuthService;
+import com.example.phong_kham_da_khoa.dto.AuthResponse;
+import com.example.phong_kham_da_khoa.dto.LoginRequest;
+import com.example.phong_kham_da_khoa.dto.RegisterRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
-    @Autowired private AuthService authService;
+
+    private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest req) {
-        return ResponseEntity.ok(authService.register(req));
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest req) {
-        return ResponseEntity.ok(authService.login(req));
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }
