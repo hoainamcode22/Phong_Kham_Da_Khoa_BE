@@ -1,3 +1,4 @@
+/*
 package com.example.phong_kham_da_khoa.Service;
 
 import com.example.phong_kham_da_khoa.dto.AppointmentRequest;
@@ -35,7 +36,7 @@ public class AppointmentService {
     }
 
     @Transactional
-    public AppointmentResponse createAppointment(AppointmentRequest request) {
+    public AppointmentRespository createAppointment(AppointmentRequest request) {
         // 1. Kiểm tra sự tồn tại của bệnh nhân và bác sĩ
         User patient = userRepository.findById(request.getPatientId())
                 .orElseThrow(() -> new RuntimeException("Patient not found with ID: " + request.getPatientId()));
@@ -180,4 +181,4 @@ public class AppointmentService {
         Appointment updatedAppointment = appointmentRepository.save(appointment);
         return new AppointmentResponse(updatedAppointment);
     }
-}
+}*/

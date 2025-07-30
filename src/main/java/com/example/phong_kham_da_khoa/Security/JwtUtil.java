@@ -1,8 +1,11 @@
 package com.example.phong_kham_da_khoa.Security;
 
 import com.example.phong_kham_da_khoa.Model.User;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -11,19 +14,26 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "phongkhamdakhoasecretkey1234567890!"; // tối thiểu 32 ký tự
-    private final long EXPIRATION_TIME = 86400000; // 1 ngày
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.expiration-ms:86400000}") // default 24h
+    private long expirationMs;
 
     private Key getSignKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        byte[] keyBytes = Decoders.BASE64.decode(secret); // secret là Base64
+        return Keys.hmacShaKeyFor(keyBytes);              // >= 256-bit
     }
 
     public String generateToken(User user) {
+        Date now = new Date();
+        Date exp = new Date(now.getTime() + expirationMs);
+
         return Jwts.builder()
-                .setSubject(user.getEmail())
-                .claim("role", user.getRole().name())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setSubject(user.getEmail())                  // dùng email làm subject
+                .claim("role", user.getRole().name())         // optional
+                .setIssuedAt(now)
+                .setExpiration(exp)
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -38,17 +48,13 @@ public class JwtUtil {
     }
 
     public boolean isTokenValid(String token, User user) {
-        final String email = extractEmail(token);
-        return (email.equals(user.getEmail()) && !isTokenExpired(token));
-    }
-
-    private boolean isTokenExpired(String token) {
-        Date expiration = Jwts.parserBuilder()
+        String email = extractEmail(token);
+        Date exp = Jwts.parserBuilder()
                 .setSigningKey(getSignKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getExpiration();
-        return expiration.before(new Date());
+        return email.equals(user.getEmail()) && exp.after(new Date());
     }
 }
