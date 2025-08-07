@@ -2,6 +2,7 @@ package com.example.phong_kham_da_khoa.Controller;
 
 import com.example.phong_kham_da_khoa.Model.Clinic;
 import com.example.phong_kham_da_khoa.Model.User;
+import com.example.phong_kham_da_khoa.dto.ClinicRequest;
 import com.example.phong_kham_da_khoa.Service.ClinicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,14 @@ public class ClinicController {
     // Chủ phòng khám đăng ký phòng khám mới
     @PostMapping("/create")
     @PreAuthorize("hasRole('CLINIC_OWNER')")
-    public ResponseEntity<?> createClinic(@RequestParam String name,
-                                          @RequestParam String address,
-                                          @RequestParam String phone,
+    public ResponseEntity<?> createClinic(@RequestBody ClinicRequest request,
                                           @AuthenticationPrincipal User owner) {
-        Clinic clinic = clinicService.createClinic(name, address, phone, owner);
+        Clinic clinic = clinicService.createClinic(
+                request.getName(),
+                request.getAddress(),
+                request.getPhone(),
+                owner
+        );
         return ResponseEntity.ok(clinic);
     }
 
