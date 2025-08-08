@@ -28,4 +28,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    // Hoang Hà: Trạng thái duyệt (chỉ áp dụng với bác sĩ)
+    @Enumerated(EnumType.STRING)
+    private ApprovalStatus approvalStatus;
 }
