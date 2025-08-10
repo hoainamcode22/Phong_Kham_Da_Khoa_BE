@@ -1,6 +1,9 @@
 package com.example.phong_kham_da_khoa.Repository;
 
+import com.example.phong_kham_da_khoa.Model.Message;
+import com.example.phong_kham_da_khoa.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 

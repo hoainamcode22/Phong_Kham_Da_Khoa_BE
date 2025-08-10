@@ -1,5 +1,6 @@
 package com.example.phong_kham_da_khoa.Controller;
 
+import com.example.phong_kham_da_khoa.Model.User;
 import com.example.phong_kham_da_khoa.dto.DoctorRegisterRequest;
 import com.example.phong_kham_da_khoa.Service.DoctorService;
 import lombok.RequiredArgsConstructor;

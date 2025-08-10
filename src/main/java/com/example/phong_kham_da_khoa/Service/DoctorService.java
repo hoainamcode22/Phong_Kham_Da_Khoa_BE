@@ -4,7 +4,8 @@ import com.example.phong_kham_da_khoa.Model.Clinic;
 import com.example.phong_kham_da_khoa.Model.Role;
 import com.example.phong_kham_da_khoa.Repository.ClinicRepository;
 import com.example.phong_kham_da_khoa.Repository.UserRepository;
-
+import com.example.phong_kham_da_khoa.Model.User;
+import com.example.phong_kham_da_khoa.dto.DoctorRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.phong_kham_da_khoa.dto;
 
 import lombok.Data;
 

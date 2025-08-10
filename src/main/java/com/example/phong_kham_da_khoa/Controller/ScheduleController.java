@@ -1,8 +1,10 @@
-package com.example.demo.Controller;
+package com.example.phong_kham_da_khoa.Controller;
 
-import com.example.demo.Service.ScheduleService;
-import com.example.demo.dto.AvailableSlotRequest;
+
+import com.example.phong_kham_da_khoa.dto.AvailableSlotRequest;
 import com.example.phong_kham_da_khoa.Model.AvailableSlot;
+import com.example.phong_kham_da_khoa.Service.ScheduleService;
+import com.example.phong_kham_da_khoa.dto.AppointmentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -2,7 +2,9 @@ package com.example.phong_kham_da_khoa.Service;
 
 import com.example.phong_kham_da_khoa.Model.*;
 import com.example.phong_kham_da_khoa.Repository.AppointmentRepository;
+import com.example.phong_kham_da_khoa.Repository.ExaminationResultRepository;
 import com.example.phong_kham_da_khoa.Repository.UserRepository;
+import com.example.phong_kham_da_khoa.dto.ExaminationResultRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
