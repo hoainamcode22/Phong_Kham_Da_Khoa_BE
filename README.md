@@ -1,8 +1,5 @@
 # Phong Kham Da Khoa - Backend
-
 ## 📂 Cấu trúc thư mục
-
-
 src/main/java/com/example/phong_kham_da_khoa
 │
 ├── admin
