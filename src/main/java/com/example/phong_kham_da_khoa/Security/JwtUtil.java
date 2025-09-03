@@ -1,6 +1,6 @@
 package com.example.phong_kham_da_khoa.Security;
 
-import com.example.phong_kham_da_khoa.Model.User;
+import com.example.phong_kham_da_khoa.user.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -21,8 +22,16 @@ public class JwtUtil {
     private long expirationMs;
 
     private Key getSignKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret); // secret là Base64
-        return Keys.hmacShaKeyFor(keyBytes);              // >= 256-bit
+        byte[] keyBytes;
+        try {
+            // Ưu tiên secret dạng Base64
+            keyBytes = Decoders.BASE64.decode(secret);
+        } catch (IllegalArgumentException e) {
+            // Fallback: secret dạng plain text
+            keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        }
+        // Lưu ý: chuỗi secret cần đủ mạnh (>= 32 bytes) để HS256 hợp lệ
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(User user) {
@@ -46,6 +55,7 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+
 
     public boolean isTokenValid(String token, User user) {
         String email = extractEmail(token);

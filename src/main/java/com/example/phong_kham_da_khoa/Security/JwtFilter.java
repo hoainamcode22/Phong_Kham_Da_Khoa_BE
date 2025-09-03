@@ -1,15 +1,15 @@
 package com.example.phong_kham_da_khoa.Security;
 
-import com.example.phong_kham_da_khoa.Model.User;
-import com.example.phong_kham_da_khoa.Repository.UserRepository;
+import com.example.phong_kham_da_khoa.user.model.User;
+import com.example.phong_kham_da_khoa.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -42,12 +42,12 @@ public class JwtFilter extends OncePerRequestFilter {
             User user = userRepository.findByEmail(email).orElse(null);
 
             if (user != null && jwtUtil.isTokenValid(token, user)) {
-                // Thêm quyền role cho user
+                // principal = email để getAuthentication().getName() trả về đúng email
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole().name());
 
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
-                                user,
+                                email, // principal
                                 null,
                                 Collections.singletonList(authority)
                         );
